@@ -1,8 +1,13 @@
 import type { AppProps } from 'next/app'
 import 'tailwindcss/tailwind.css'
+import UserProvider from '../context/userContext'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <UserProvider>
+      return <Component {...pageProps} />
+    </UserProvider>
+  )
 }
 
 export default MyApp
