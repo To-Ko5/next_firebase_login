@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
 import { useUser } from '../context/userContext'
+import firebase from 'firebase/app'
 import loading from '../styles/loading.module.css'
 
 const Home = () => {
   const { user, loadingUser } = useUser()
 
   const loginButtonClick = () => {
-    console.log('login')
+    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
   }
 
   return (
@@ -17,7 +18,8 @@ const Home = () => {
             className={`${loading.loader} ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mx-auto mb-4`}
           ></div>
         )}
-        {user.displayName && <p>{user.displayName}</p>}
+
+        {user && <p>{user.displayName}</p>}
         <button
           onClick={loginButtonClick}
           className="px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
