@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext, useContext } from 'react'
 import firebase from '../firebase/client'
 
-export const UserContext = createContext({})
+export const UserContext = createContext({} as any)
 
 export default function UserContextComp({ children }) {
   const [user, setUser] = useState(null)
