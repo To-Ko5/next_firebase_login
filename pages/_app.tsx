@@ -5,7 +5,7 @@ import UserProvider from '../context/userContext'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <UserProvider>
-      return <Component {...pageProps} />
+      <Component {...pageProps} />
     </UserProvider>
   )
 }
