@@ -23,9 +23,8 @@ const Home = () => {
     firebase
       .firestore()
       .collection('nickname')
-      .get()
-      .then((e) => {
-        setNickname(e.docs.map((doc) => doc.data()))
+      .onSnapshot((docs) => {
+        setNickname(docs.docs.map((doc) => doc.data()))
       })
   }
 
