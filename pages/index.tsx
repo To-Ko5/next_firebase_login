@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useUser } from '../context/userContext'
+import { GetStaticProps } from 'next'
 import firebase from 'firebase/app'
 import loading from '../styles/loading.module.css'
+import admin from '../firebase/node'
 
-const Home = () => {
+const Home = ({ nickname }) => {
   const { user, loadingUser } = useUser()
-  const [nickname, setNickname] = useState([])
 
   const loginButtonClick = () => {
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
@@ -19,18 +20,18 @@ const Home = () => {
     })
   }
 
-  const getUserNickname = () => {
-    firebase
-      .firestore()
-      .collection('nickname')
-      .onSnapshot((docs) => {
-        setNickname(docs.docs.map((doc) => doc.data()))
-      })
-  }
+  // const getUserNickname = () => {
+  //   firebase
+  //     .firestore()
+  //     .collection('nickname')
+  //     .onSnapshot((docs) => {
+  //       setNickname(docs.docs.map((doc) => doc.data()))
+  //     })
+  // }
 
-  useEffect(() => {
-    getUserNickname()
-  }, [])
+  // useEffect(() => {
+  //   getUserNickname()
+  // }, [])
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -65,3 +66,20 @@ const Home = () => {
 }
 
 export default Home
+
+export const getStaticProps: GetStaticProps = async () => {
+  const response = await (
+    await admin.firestore().collection('nickname').get()
+  ).docs.map((doc) => doc.data())
+  console.log(response)
+  if (!response) {
+    return {
+      notFound: true
+    }
+  }
+  return {
+    props: {
+      nickname: response
+    }
+  }
+}
