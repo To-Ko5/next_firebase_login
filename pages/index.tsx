@@ -16,7 +16,7 @@ const Home = ({ nickname }) => {
     const id = firebase.firestore().collection('_').doc().id
     firebase.firestore().doc(`nickname/${id}`).set({
       id,
-      name: 'tom'
+      name: 'atom'
     })
   }
 
@@ -80,6 +80,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       nickname: response
-    }
+    },
+    revalidate: 60
   }
 }
