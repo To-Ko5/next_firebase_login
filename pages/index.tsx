@@ -71,7 +71,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const response = await (
     await admin.firestore().collection('nickname').get()
   ).docs.map((doc) => doc.data())
-  console.log(response)
+
   if (!response) {
     return {
       notFound: true
