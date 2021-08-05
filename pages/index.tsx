@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
+// import { useEffect, useState } from 'react'
 import { useUser } from '../context/userContext'
 import { GetStaticProps } from 'next'
 import firebase from 'firebase/app'
-import loading from '../styles/loading.module.css'
 import admin from '../firebase/node'
+import loading from '../styles/loading.module.css'
 
 const Home = ({ nickname }) => {
   const { user, loadingUser } = useUser()
